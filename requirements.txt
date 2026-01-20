@@ -1,0 +1,9 @@
+torch==2.8.0
+transformers==4.55.0
+peft==0.15.0
+datasets==4.3.0
+flwr==1.23.0
+ray==2.9
+pandas==2.3.0
+matplotlib==3.7
+opacus==1.4

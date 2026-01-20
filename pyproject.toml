@@ -1,0 +1,45 @@
+[project]
+name = "asr-lora-dp"
+version = "0.1.0"
+description = "Federated learning for ASR with DP"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.8.0",
+    "transformers>=4.55.0",
+    "peft>=0.15.0",
+    "datasets>=4.3.0",
+    "flwr>=1.23.0",
+    "ray>=2.9",
+    "pandas>=2.3.0",
+    "matplotlib>=3.7",
+    "opacus>=1.4",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.flwr.app]
+publisher = "gadisa"
+serverapp = "asr_federated.server:server_app"
+clientapp = "asr_federated.client:client_app"
+
+[tool.flwr.app.config]
+num-rounds = 3
+local-updates = 20
+lora-rank = 8
+lr = 1e-4
+noise-multiplier = 1.0
+clip-norm = 1.0
+conf-threshold = -0.2
+log-dir = "logs"
+sweep-mode = false
+
+[tool.flwr.federations]
+default = "local-simulation"
+
+[tool.flwr.federations.local-simulation]
+options.num-supernodes = 3
+
+
